@@ -15,18 +15,14 @@
  *     - Decode from a copy of the data so we can start capturing faster thus
  *       reduce the likelihood of miscaptures.
  * Based on Ken Shirriff's IrsendDemo Version 0.1 July, 2009,
- *GNK  modified to test mpx decode
  */
 
 #ifndef UNIT_TEST
 #include <Arduino.h>
 #endif
-#include </Volumes/D5-INFO1/IRremoteESP8266-mpx/src/IRremoteESP8266.h>
-#include </Volumes/D5-INFO1/IRremoteESP8266-mpx/src/IRrecv.h>
-#include </Volumes/D5-INFO1/IRremoteESP8266-mpx/src/IRutils.h>
-
-#define DECODE_AC false
-
+#include <IRremoteESP8266.h>
+#include <IRrecv.h>
+#include <IRutils.h>
 #if DECODE_AC
 #include <ir_Daikin.h>
 #include <ir_Fujitsu.h>
@@ -38,7 +34,7 @@
 // ==================== start of TUNEABLE PARAMETERS ====================
 // An IR detector/demodulator is connected to GPIO pin 14
 // e.g. D5 on a NodeMCU board.
-#define RECV_PIN D2
+#define RECV_PIN 14
 
 // The Serial connection baud rate.
 // i.e. Status message will be sent to the PC at this baud rate.

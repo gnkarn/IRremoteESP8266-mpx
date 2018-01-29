@@ -56,107 +56,108 @@
 //
 #define DECODE_HASH          true  // Semi-unique code for unknown messages
 
-#define SEND_RAW             false
+#define SEND_RAW             true
 
-#define DECODE_NEC           false
-#define SEND_NEC
+#define DECODE_NEC           true
+#define SEND_NEC             true
 
-#define DECODE_SHERWOOD      false  // Doesn't exist. Actually is DECODE_NEC
-#define SEND_SHERWOOD        false
+#define DECODE_SHERWOOD      true  // Doesn't exist. Actually is DECODE_NEC
+#define SEND_SHERWOOD        true
 
-#define DECODE_RC5           false
-#define SEND_RC5             false
+#define DECODE_RC5           true
+#define SEND_RC5             true
 
-#define DECODE_RC6           false
-#define SEND_RC6             false
+#define DECODE_RC6           true
+#define SEND_RC6             true
 
-#define DECODE_RCMM          false
-#define SEND_RCMM            false
+#define DECODE_RCMM          true
+#define SEND_RCMM            true
 
-#define DECODE_SONY          false
-#define SEND_SONY            false
+#define DECODE_SONY          true
+#define SEND_SONY            true
 
-#define DECODE_PANASONIC     false
-#define SEND_PANASONIC       false
+#define DECODE_PANASONIC     true
+#define SEND_PANASONIC       true
 
-#define DECODE_JVC           false
-#define SEND_JVC             false
+#define DECODE_JVC           true
+#define SEND_JVC             true
 
-#define DECODE_SAMSUNG       false
-#define SEND_SAMSUNG         false
+#define DECODE_SAMSUNG       true
+#define SEND_SAMSUNG         true
 
-#define DECODE_WHYNTER       false
-#define SEND_WHYNTER         false
+#define DECODE_WHYNTER       true
+#define SEND_WHYNTER         true
 
-#define DECODE_AIWA_RC_T501  false
-#define SEND_AIWA_RC_T501    false
+#define DECODE_AIWA_RC_T501  true
+#define SEND_AIWA_RC_T501    true
 
-#define DECODE_LG            false
-#define SEND_LG              false
+#define DECODE_LG            true
+#define SEND_LG              true
 
-#define DECODE_SANYO         false
-#define SEND_SANYO           false
+#define DECODE_SANYO         true
+#define SEND_SANYO           true
 
-#define DECODE_MITSUBISHI    false
-#define SEND_MITSUBISHI      false
+#define DECODE_MITSUBISHI    true
+#define SEND_MITSUBISHI      true
 
-#define DECODE_DISH          false
-#define SEND_DISH            false
+#define DECODE_DISH          true
+#define SEND_DISH            true
 
-#define DECODE_SHARP         false
-#define SEND_SHARP           false
+#define DECODE_SHARP         true
+#define SEND_SHARP           true
 
-#define DECODE_DENON         false
-#define SEND_DENON           false
+#define DECODE_DENON         true
+#define SEND_DENON           true
 
-#define DECODE_KELVINATOR    false
-#define SEND_KELVINATOR      false
+#define DECODE_KELVINATOR    true
+#define SEND_KELVINATOR      true
 
 #define DECODE_MITSUBISHI_AC false  // Not written.
-#define SEND_MITSUBISHI_AC   false
+#define SEND_MITSUBISHI_AC   true
 
-#define DECODE_FUJITSU_AC    false
-#define SEND_FUJITSU_AC      false
+#define DECODE_FUJITSU_AC    true
+#define SEND_FUJITSU_AC      true
 
-#define DECODE_DAIKIN        false
-#define SEND_DAIKIN          false
+#define DECODE_DAIKIN        true
+#define SEND_DAIKIN          true
 
-#define DECODE_COOLIX        false
-#define SEND_COOLIX          false
+#define DECODE_COOLIX        true
+#define SEND_COOLIX          true
 
 #define DECODE_GLOBALCACHE   false  // Not written.
-#define SEND_GLOBALCACHE     false
+#define SEND_GLOBALCACHE     true
 
 #define DECODE_GREE          false  // Not written.
-#define SEND_GREE            false
+#define SEND_GREE            true
 
 #define DECODE_PRONTO        false  // Not written.
-#define SEND_PRONTO          false
+#define SEND_PRONTO          true
 
 #define DECODE_ARGO          false  // Not written.
-#define SEND_ARGO            false
+#define SEND_ARGO            true
 
 #define DECODE_TROTEC        false  // Not implemented.
-#define SEND_TROTEC          false
+#define SEND_TROTEC          true
 
-#define MPX_DECODE           true 
-#define SEND_NIKAI           false
+#define DECODE_NIKAI         true
+#define SEND_NIKAI           true
 
-#define DECODE_TOSHIBA_AC    false
-#define SEND_TOSHIBA_AC      false
+#define DECODE_TOSHIBA_AC    true
+#define SEND_TOSHIBA_AC      true
 
-#define DECODE_MAGIQUEST     false
-#define SEND_MAGIQUEST       false
+#define DECODE_MAGIQUEST     true
+#define SEND_MAGIQUEST       true
 
-#define DECODE_MIDEA         false
-#define SEND_MIDEA           false
+#define DECODE_MIDEA         true
+#define SEND_MIDEA           true
 
-#define DECODE_LASERTAG      false
-#define SEND_LASERTAG        false
+#define DECODE_LASERTAG      true
+#define SEND_LASERTAG        true
 
-#define DECODE_CARRIER_AC    false
-#define SEND_CARRIER_AC      false
+#define DECODE_CARRIER_AC    true
+#define SEND_CARRIER_AC      true
 
+#define MPX_DECODE           true
 
 #if (DECODE_ARGO || DECODE_DAIKIN || DECODE_FUJITSU_AC || DECODE_GREE || \
      DECODE_KELVINATOR || DECODE_MITSUBISHI_AC || DECODE_TOSHIBA_AC || \
@@ -202,7 +203,7 @@ enum decode_type_t {
   NEC_LIKE,
   ARGO,
   TROTEC,
-  MPX,
+  NIKAI,
   RAW,  // Technically not a protocol, but an encoding.
   GLOBALCACHE,  // Technically not a protocol, but an encoding.
   TOSHIBA_AC,
@@ -210,7 +211,8 @@ enum decode_type_t {
   MIDEA,
   MAGIQUEST,
   LASERTAG,
-  CARRIER_AC
+  CARRIER_AC,
+  MPX
 };
 
 // Message lengths & required repeat values
@@ -277,13 +279,13 @@ enum decode_type_t {
 #define TROTEC_COMMAND_LENGTH        9U
 #define WHYNTER_BITS                32U
 #define ARGO_COMMAND_LENGTH         12U
-#define MPX_BITS                  16U
+#define NIKAI_BITS                  24U
 #define MAGIQUEST_BITS              56U
 #define MIDEA_BITS                  48U
 #define MIDEA_MIN_REPEAT             0U
 #define LASERTAG_BITS               13U
 #define LASERTAG_MIN_REPEAT          0U
-
+#define MPX_BITS                  16U
 // Turn on Debugging information by uncommenting the following line.
 // #define DEBUG 1
 
