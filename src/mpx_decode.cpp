@@ -50,7 +50,7 @@ void IRsend::sendMPX(uint64_t data, uint16_t nbits, uint16_t repeat) {
 }
 #endif
 
-#if MPX_DECODE
+#if DECODE_MPX
 // Decode the supplied MPX message.
 //
 // Args:
