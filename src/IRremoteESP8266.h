@@ -157,7 +157,7 @@
 #define DECODE_CARRIER_AC    true
 #define SEND_CARRIER_AC      true
 
-#define MPX_DECODE           true
+#define DECODE_MPX           true
 
 #if (DECODE_ARGO || DECODE_DAIKIN || DECODE_FUJITSU_AC || DECODE_GREE || \
      DECODE_KELVINATOR || DECODE_MITSUBISHI_AC || DECODE_TOSHIBA_AC || \
