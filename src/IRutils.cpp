@@ -137,6 +137,7 @@ std::string typeToString(const decode_type_t protocol,
     case TOSHIBA_AC:    result = "TOSHIBA_AC";        break;
     case TROTEC:        result = "TROTEC";            break;
     case WHYNTER:       result = "WHYNTER";           break;
+    case MPX:           result = "MPX";               break;
   }
   if (isRepeat) result += " (Repeat)";
   return result;

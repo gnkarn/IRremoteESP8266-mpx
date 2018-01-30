@@ -20,7 +20,7 @@
 #ifndef UNIT_TEST
 #include <Arduino.h>
 #endif
-#include <src/IRremoteESP8266.h>
+#include <IRremoteESP8266.h>
 #include <IRrecv.h>
 #include <IRutils.h>
 #if DECODE_AC
