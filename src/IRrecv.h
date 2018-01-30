@@ -269,6 +269,11 @@ class IRrecv {
                        uint16_t nbits = CARRIER_AC_BITS,
                        bool strict = true);
 #endif
-};
 
+
+#if DECODE_MPX
+  bool decodeMpx(decode_results *results, uint16_t nbits = MPX_BITS,
+                   bool strict = true);
+#endif
+};
 #endif  // IRRECV_H_

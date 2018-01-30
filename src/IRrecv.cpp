@@ -268,6 +268,13 @@ bool IRrecv::decode(decode_results *results, irparams_t *save) {
   results->command = 0;
   results->repeat = false;
 
+  #if DECODE_MPX
+      DPRINTLN("Attempting MPX decode");
+      // Try decodeMPX
+      if (decodeMpx(results,MPX_BITS, false))
+        return true;
+    #endif
+
 #if DECODE_AIWA_RC_T501
   DPRINTLN("Attempting Aiwa RC T501 decode");
   // Try decodeAiwaRCT501() before decodeSanyoLC7461() & decodeNEC()

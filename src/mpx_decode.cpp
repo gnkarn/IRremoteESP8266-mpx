@@ -13,21 +13,21 @@
 // Constants
 // Ref:
 //   https://github.com/markszabo/IRremoteESP8266/issues/309
-#define MPX_TICK             1U
-#define _HDR_MARK_TICKS     4000U
+#define MPX_TICK             100U
+#define _HDR_MARK_TICKS     40U
 #define MPX_HDR_MARK         (MPX_HDR_MARK_TICKS * MPX_TICK)
-#define MPX_HDR_SPACE_TICKS    1400U
+#define MPX_HDR_SPACE_TICKS    14U
 #define MPX_HDR_SPACE        (MPX_HDR_SPACE_TICKS * MPX_TICK)
-#define MPX_BIT_MARK_TICKS     2800U
+#define MPX_BIT_MARK_TICKS     28U
 #define MPX_BIT_MARK         (MPX_BIT_MARK_TICKS * MPX_TICK)
-#define MPX_ONE_SPACE_TICKS    1400U
+#define MPX_ONE_SPACE_TICKS    14U
 #define MPX_ONE_SPACE        (MPX_ONE_SPACE_TICKS * MPX_TICK)
-#define MPX_ZERO_SPACE_TICKS   2800U
+#define MPX_ZERO_SPACE_TICKS   28U
 #define MPX_ZERO_SPACE       (MPX_ZERO_SPACE_TICKS * MPX_TICK)
-#define MPX_MIN_GAP_TICKS     5000U
+#define MPX_MIN_GAP_TICKS     50U
 #define MPX_MIN_GAP          (MPX_MIN_GAP_TICKS * MPX_TICK)
-#define MPX_BIT_onemark_TICKS 2800U
-#define MPX_BIT_zeromark_TICKS 1400U
+#define MPX_BIT_onemark_TICKS 28U
+#define MPX_BIT_zeromark_TICKS 14U
 
 #if SEND_MPX
 // Send a MPX TV formatted message.
@@ -50,7 +50,7 @@ void IRsend::sendMPX(uint64_t data, uint16_t nbits, uint16_t repeat) {
 }
 #endif
 
-#if MPX_DECODE
+#if DECODE_MPX
 // Decode the supplied MPX message.
 //
 // Args:
