@@ -270,7 +270,7 @@ class IRrecv {
                        bool strict = true);
 #endif
 #if DECODE_MPX
-  bool decodeMpx(decode_results *results, uint16_t nbits = 16,
+  bool decodeMPX(decode_results *results, uint16_t nbits = MPX_BITS,
                    bool strict = true);
 #endif
 };
