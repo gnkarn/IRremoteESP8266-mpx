@@ -34,7 +34,7 @@
 // ==================== start of TUNEABLE PARAMETERS ====================
 // An IR detector/demodulator is connected to GPIO pin 14
 // e.g. D5 on a NodeMCU board.
-#define RECV_PIN D2
+#define RECV_PIN D2  // gpio04
 
 // The Serial connection baud rate.
 // i.e. Status message will be sent to the PC at this baud rate.

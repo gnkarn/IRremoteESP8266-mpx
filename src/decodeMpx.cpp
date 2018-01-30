@@ -4,7 +4,7 @@
 #include <algorithm>
 #include "IRrecv.h"
 #include "IRsend.h"
-#include "IRutils.h"
+// #include "IRutils.h"
 
 
 //               MPX Decode
@@ -14,7 +14,7 @@
 // Ref:
 //   https://github.com/markszabo/IRremoteESP8266/issues/309
 #define MPX_TICK             100U
-#define _HDR_MARK_TICKS     40U
+#define MPX_HDR_MARK_TICKS     40U
 #define MPX_HDR_MARK         (MPX_HDR_MARK_TICKS * MPX_TICK)
 #define MPX_HDR_SPACE_TICKS    14U
 #define MPX_HDR_SPACE        (MPX_HDR_SPACE_TICKS * MPX_TICK)
