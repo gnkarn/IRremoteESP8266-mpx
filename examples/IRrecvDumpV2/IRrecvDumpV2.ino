@@ -45,7 +45,7 @@
 
 // As this program is a special purpose capture/decoder, let us use a larger
 // than normal buffer so we can handle Air Conditioner remote codes.
-#define CAPTURE_BUFFER_SIZE 1024
+#define CAPTURE_BUFFER_SIZE 128
 
 // TIMEOUT is the Nr. of milli-Seconds of no-more-data before we consider a
 // message ended.

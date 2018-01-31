@@ -14,7 +14,7 @@
 // Ref:
 //   https://github.com/markszabo/IRremoteESP8266/issues/309
 #define MPX_TICK             100U
-#define MPX_HDR_MARK_TICKS     40U
+#define MPX_HDR_MARK_TICKS     80U
 #define MPX_HDR_MARK         (MPX_HDR_MARK_TICKS * MPX_TICK)
 #define MPX_HDR_SPACE_TICKS    14U
 #define MPX_HDR_SPACE        (MPX_HDR_SPACE_TICKS * MPX_TICK)
@@ -24,7 +24,7 @@
 #define MPX_ONE_SPACE        (MPX_ONE_SPACE_TICKS * MPX_TICK)
 #define MPX_ZERO_SPACE_TICKS   28U
 #define MPX_ZERO_SPACE       (MPX_ZERO_SPACE_TICKS * MPX_TICK)
-#define MPX_MIN_GAP_TICKS     50U
+#define MPX_MIN_GAP_TICKS     12U
 #define MPX_MIN_GAP          (MPX_MIN_GAP_TICKS * MPX_TICK)
 #define MPX_BIT_onemark_TICKS 28U
 #define MPX_BIT_zeromark_TICKS 14U
@@ -75,12 +75,14 @@ bool IRrecv::decodeMPX(decode_results *results, uint16_t nbits, bool strict) {
   // Header
   if (!matchMark(results->rawbuf[offset], MPX_HDR_MARK)) return false;
   // Calculate how long the common tick time is based on the header mark.
-  uint32_t m_tick = results->rawbuf[offset++] * RAWTICK /
-      MPX_HDR_MARK_TICKS;
+//  uint32_t m_tick = results->rawbuf[offset++] * RAWTICK / MPX_HDR_MARK_TICKS; // sacado para debug
+
   if (!matchSpace(results->rawbuf[offset], MPX_HDR_SPACE)) return false;
   // Calculate how long the common tick time is based on the header space.
-  uint32_t s_tick = results->rawbuf[offset++] * RAWTICK /
-      MPX_HDR_SPACE_TICKS;
+  uint32_t s_tick = results->rawbuf[offset++] * RAWTICK /  MPX_HDR_SPACE_TICKS;
+
+  uint32_t m_tick = s_tick; // gnk make both the same , no reason why not
+
   // Data
 
   // matchData(*data_ptr,  nbits,onemark, onespace,zeromark, zerospace,tolerance = TOLERANCE);
@@ -93,11 +95,11 @@ bool IRrecv::decodeMPX(decode_results *results, uint16_t nbits, bool strict) {
   data = data_result.data;
   offset += data_result.used;
   // Footer
-  if (!matchMark(results->rawbuf[offset++], MPX_BIT_MARK_TICKS * m_tick))
-    return false;
-  if (offset < results->rawlen &&
-      !matchAtLeast(results->rawbuf[offset], MPX_MIN_GAP_TICKS * s_tick))
-    return false;
+
+ if (offset < results->rawlen &&
+     !matchAtLeast(results->rawbuf[offset], MPX_MIN_GAP_TICKS * s_tick))
+   return false;
+
 
   // Compliance
 

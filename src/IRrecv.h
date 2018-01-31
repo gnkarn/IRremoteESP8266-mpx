@@ -15,8 +15,8 @@
 #include "IRremoteESP8266.h"
 
 // Constants
-#define HEADER         2U  // Usual nr. of header entries.
-#define FOOTER         2U  // Usual nr. of footer (stop bits) entries.
+#define HEADER         0U  // Usual nr. of header entries. original 2U
+#define FOOTER         1U  // Usual nr. of footer (stop bits) entries.original 2U
 #define OFFSET_START   1U  // Usual rawbuf entry to start processing from.
 #define MS_TO_USEC(x)  (x * 1000U)  // Convert milli-Seconds to micro-Seconds.
 // Marks tend to be 100us too long, and spaces 100us too short
@@ -40,7 +40,7 @@
 // before we need to start capturing a possible new message.
 // Typically 15ms suits most applications. However, some protocols demand a
 // higher value. e.g. 90ms for XMP-1 and some aircon units.
-#define TIMEOUT_MS    15U  // In MilliSeconds.
+#define TIMEOUT_MS    100U  // In MilliSeconds. original 15U
 #define MAX_TIMEOUT_MS (RAWTICK * UINT16_MAX / MS_TO_USEC(1))
 
 // Use FNV hash algorithm: http://isthe.com/chongo/tech/comp/fnv/#FNV-param

@@ -271,7 +271,7 @@ bool IRrecv::decode(decode_results *results, irparams_t *save) {
 #if DECODE_MPX
       DPRINTLN("Attempting MPX decode");
       // Try decodeMPX
-      if (decodeMPX(results,MPX_BITS, false))
+      if (decodeMPX(results,MPX_BITS, true))
         return true;
 #endif
 
