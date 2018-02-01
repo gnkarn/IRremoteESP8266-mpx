@@ -14,7 +14,7 @@
 // Ref:
 //   https://github.com/markszabo/IRremoteESP8266/issues/309
 #define MPX_TICK             100U
-#define MPX_HDR_MARK_TICKS     80U
+#define MPX_HDR_MARK_TICKS     0U
 #define MPX_HDR_MARK         (MPX_HDR_MARK_TICKS * MPX_TICK)
 #define MPX_HDR_SPACE_TICKS    14U
 #define MPX_HDR_SPACE        (MPX_HDR_SPACE_TICKS * MPX_TICK)
@@ -24,7 +24,7 @@
 #define MPX_ONE_SPACE        (MPX_ONE_SPACE_TICKS * MPX_TICK)
 #define MPX_ZERO_SPACE_TICKS   28U
 #define MPX_ZERO_SPACE       (MPX_ZERO_SPACE_TICKS * MPX_TICK)
-#define MPX_MIN_GAP_TICKS     12U
+#define MPX_MIN_GAP_TICKS     100U
 #define MPX_MIN_GAP          (MPX_MIN_GAP_TICKS * MPX_TICK)
 #define MPX_BIT_onemark_TICKS 28U
 #define MPX_BIT_zeromark_TICKS 14U
@@ -64,8 +64,11 @@ void IRsend::sendMPX(uint64_t data, uint16_t nbits, uint16_t repeat) {
 // Status: STABLE / Working.
 //
 bool IRrecv::decodeMPX(decode_results *results, uint16_t nbits, bool strict) {
-  if (results->rawlen < 2 * nbits + HEADER + FOOTER - 1)
+  //if (results->rawlen < 2 * nbits + HEADER + FOOTER - 1)// original
+  if (results->rawlen < 2 * nbits + FOOTER )
     return false;  // Can't possibly be a valid MPX message.
+      Serial.print("nbits ");Serial.print(nbits); // ** solo para DEBUG
+
   if (strict && nbits != MPX_BITS)
     return false;  // We expect MPX to be a certain sized message.
 
@@ -73,24 +76,25 @@ bool IRrecv::decodeMPX(decode_results *results, uint16_t nbits, bool strict) {
   uint16_t offset = OFFSET_START;
 
   // Header
-  if (!matchMark(results->rawbuf[offset], MPX_HDR_MARK)) return false;
+
+//   if (!matchMark(results->rawbuf[offset], MPX_HDR_MARK)) return false;
   // Calculate how long the common tick time is based on the header mark.
 //  uint32_t m_tick = results->rawbuf[offset++] * RAWTICK / MPX_HDR_MARK_TICKS; // sacado para debug
 
-  if (!matchSpace(results->rawbuf[offset], MPX_HDR_SPACE)) return false;
+//  if (!matchSpace(results->rawbuf[offset], MPX_HDR_SPACE)) return false; // habilitar!
   // Calculate how long the common tick time is based on the header space.
   uint32_t s_tick = results->rawbuf[offset++] * RAWTICK /  MPX_HDR_SPACE_TICKS;
 
   uint32_t m_tick = s_tick; // gnk make both the same , no reason why not
-
+  //Serial.print("m_tick: ") ;Serial.print(m_tick); // only for debug
   // Data
 
   // matchData(*data_ptr,  nbits,onemark, onespace,zeromark, zerospace,tolerance = TOLERANCE);
   match_result_t data_result = matchData(&(results->rawbuf[offset]), nbits,
-                                         MPX_BIT_onemark_TICKS * m_tick,
-                                         MPX_ONE_SPACE_TICKS * s_tick,
-                                         MPX_BIT_zeromark_TICKS * m_tick,
-                                         MPX_ZERO_SPACE_TICKS * s_tick);
+                                         MPX_BIT_onemark_TICKS * MPX_TICK,
+                                         MPX_ONE_SPACE_TICKS * MPX_TICK,
+                                         MPX_BIT_zeromark_TICKS * MPX_TICK,
+                                         MPX_ZERO_SPACE_TICKS * MPX_TICK);
   if (data_result.success == false) return false;
   data = data_result.data;
   offset += data_result.used;

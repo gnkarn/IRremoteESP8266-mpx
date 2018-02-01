@@ -287,7 +287,7 @@ enum decode_type_t {
 #define LASERTAG_MIN_REPEAT          0U
 #define MPX_BITS                    16U
 // Turn on Debugging information by uncommenting the following line.
-// #define DEBUG 1
+#define DEBUG 1
 
 #ifdef DEBUG
 #ifdef UNIT_TEST

@@ -15,9 +15,9 @@
 #include "IRremoteESP8266.h"
 
 // Constants
-#define HEADER         0U  // Usual nr. of header entries. original 2U
+#define HEADER         1U  // Usual nr. of header entries. original 2U
 #define FOOTER         1U  // Usual nr. of footer (stop bits) entries.original 2U
-#define OFFSET_START   1U  // Usual rawbuf entry to start processing from.
+#define OFFSET_START   0U  // Usual rawbuf entry to start processing from.
 #define MS_TO_USEC(x)  (x * 1000U)  // Convert milli-Seconds to micro-Seconds.
 // Marks tend to be 100us too long, and spaces 100us too short
 // when received due to sensor lag.
@@ -30,7 +30,7 @@
 #define STATE_MARK     3U
 #define STATE_SPACE    4U
 #define STATE_STOP     5U
-#define TOLERANCE     25U  // default percent tolerance in measurements
+#define TOLERANCE     15U  // default percent tolerance in measurements original 25
 #define RAWTICK        2U  // Capture tick to uSec factor.
 // How long (ms) before we give up wait for more data?
 // Don't exceed MAX_TIMEOUT_MS without a good reason.

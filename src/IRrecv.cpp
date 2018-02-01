@@ -686,18 +686,21 @@ match_result_t IRrecv::matchData(volatile uint16_t *data_ptr,
         return result;  // Fail
     }
     result.success = true;
-  } else if (onespace == zerospace) {  // Is this mark encoded data format?
-    for (result.used = 0;
+//  } else if (onespace == zerospace) {  // Is this mark encoded data format? - original
+} else if (true) {  // Is this mark encoded data format?
+    for (result.used = 0; // nro de digitos procesados
          result.used < nbits * 2;
          result.used += 2, data_ptr++) {
       if (matchMark(*data_ptr, onemark, tolerance))
-        result.data = (result.data << 1) | 1;
+        result.data = (result.data << 1) | 1;  //  detecta un 1
       else if (matchMark(*data_ptr, zeromark, tolerance))
-        result.data <<= 1;
+        result.data <<= 1;  // detecta un 0
       else
         return result;  // Fail
       data_ptr++;
-      if (!matchSpace(*data_ptr, onespace, tolerance))
+      // debe seguir un espacio , pero puede ser de uno o de cero
+      // para esta deteccion deberia estar vinculada  a si fue un uno o un cero en los if unas lineas arriba
+      if ((!matchSpace(*data_ptr, onespace, tolerance)) and (!matchSpace(*data_ptr, zerospace, tolerance)))
         return result;  // Fail
     }
     result.success = true;
