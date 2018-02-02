@@ -669,43 +669,28 @@ match_result_t IRrecv::matchData(volatile uint16_t *data_ptr,
                                  const uint32_t zerospace,
                                  const uint8_t tolerance) {
   match_result_t result;
-  result.success = false;
+  result.success = false;  // Fail by default.
   result.data = 0;
-  if (onemark == zeromark) {  // Is this space encoded data format?
-    for (result.used = 0;
-         result.used < nbits * 2;
-         result.used += 2, data_ptr++) {
-      if (!matchMark(*data_ptr, onemark, tolerance))
-        return result;  // Fail
-      data_ptr++;
-      if (matchSpace(*data_ptr, onespace, tolerance))
-        result.data = (result.data << 1) | 1;
-      else if (matchSpace(*data_ptr, zerospace, tolerance))
-        result.data <<= 1;
-      else
-        return result;  // Fail
-    }
-    result.success = true;
-//  } else if (onespace == zerospace) {  // Is this mark encoded data format? - original
-} else if (true) {  // Is this mark encoded data format?
-    for (result.used = 0; // nro de digitos procesados
-         result.used < nbits * 2;
-         result.used += 2, data_ptr++) {
-      if (matchMark(*data_ptr, onemark, tolerance))
-        result.data = (result.data << 1) | 1;  //  detecta un 1
-      else if (matchMark(*data_ptr, zeromark, tolerance))
-        result.data <<= 1;  // detecta un 0
-      else
-        return result;  // Fail
-      data_ptr++;
-      // debe seguir un espacio , pero puede ser de uno o de cero
-      // para esta deteccion deberia estar vinculada  a si fue un uno o un cero en los if unas lineas arriba
-      if ((!matchSpace(*data_ptr, onespace, tolerance)) and (!matchSpace(*data_ptr, zerospace, tolerance)))
-        return result;  // Fail
-    }
-    result.success = true;
-  }
+  for (result.used = 0; // nro de digitos procesados
+           result.used < nbits * 2;
+           result.used += 2, data_ptr++) {
+        if (matchMark(*data_ptr, onemark, tolerance))
+          result.data = (result.data << 1) | 1;  //  detecta un 1
+        else if (matchMark(*data_ptr, zeromark, tolerance))
+          result.data <<= 1;  // detecta un 0
+        else
+          return result;  // Fail
+        data_ptr++;
+        // debe seguir un espacio , pero puede ser de uno o de cero
+        // para esta deteccion deberia estar vinculada  a si fue un uno o un cero en los if unas lineas arriba
+        if ((!matchSpace(*data_ptr, onespace, tolerance)) and (!matchSpace(*data_ptr, zerospace, tolerance)))
+          return result;  // Fail
+      }
+      result.success = true;
   return result;
 }
+
+
+
 
 // End of IRrecv class -------------------
