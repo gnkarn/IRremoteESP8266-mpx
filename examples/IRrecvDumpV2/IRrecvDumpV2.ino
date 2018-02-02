@@ -145,10 +145,26 @@ void dumpACInfo(decode_results *results) {
   if (description != "")  Serial.println("Mesg Desc.: " + description);
 }
 
+#define LED     D0        // Led in NodeMCU at pin GPIO16 (D0)
+unsigned long previousLedMillis = 0;        // will store last time LED was updated
+unsigned long currentLedMillis = 0; // last time when led was turned on
+bool ledState = 0; // led Status
+// constants won't change:
+const long lediInterval = 500;           // interval at which to blink (milliseconds)
+
+// if the code corresponds to an alarm zone return zone number
+uint8_t DetectAlarmZone(){
+  if (results.value == 0x9653) return 5;
+  return 0 ;
+}
+
 // The section of code run only once at start-up.
 void setup() {
+  pinMode(LED, OUTPUT);   // LED pin as output.
   Serial.begin(BAUD_RATE, SERIAL_8N1, SERIAL_TX_ONLY);
+  digitalWrite(LED, LOW);
   delay(500);  // Wait a bit for the serial connection to be establised.
+  digitalWrite(LED, HIGH);
 
 #if DECODE_HASH
   // Ignore messages with less than minimum on or off pulses.
@@ -188,5 +204,22 @@ void loop() {
     Serial.println(resultToSourceCode(&results));
     Serial.println("");  // Blank line between entries
     yield();  // Feed the WDT (again)
+
+    //serialPrintUint64(results.value, HEX) ; // decimal value para  verificar por zona en hexa
+    uint8_t z = DetectAlarmZone();
+    currentLedMillis = millis();
+    if (z != 0) {
+      Serial.print("z "); Serial.println(z);
+      digitalWrite(LED,0); // turn on
+      previousLedMillis = currentLedMillis;
+      ledState = 1;
+    }
+    // if the LED is on and time expires turn it off
+    if (ledState == 1) {
+      if (currentLedMillis - previousLedMillis >= lediInterval) {
+      ledState = 0;
+      digitalWrite(LED,1); // turn off
+      }
+    }
   }
-}
+} // loop end

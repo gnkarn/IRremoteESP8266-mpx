@@ -65,10 +65,8 @@ void IRsend::sendMPX(uint64_t data, uint16_t nbits, uint16_t repeat) {
 //
 bool IRrecv::decodeMPX(decode_results *results, uint16_t nbits, bool strict) {
   //if (results->rawlen < 2 * nbits + HEADER + FOOTER - 1)// original
-  if (results->rawlen < 2 * nbits + FOOTER )
+  if (results->rawlen < 2 * nbits + 1 ) // el 1 es por el espacio del Header , inicio del frame
     return false;  // Can't possibly be a valid MPX message.
-      Serial.print("nbits ");Serial.print(nbits); // ** solo para DEBUG
-
   if (strict && nbits != MPX_BITS)
     return false;  // We expect MPX to be a certain sized message.
 
@@ -99,10 +97,10 @@ bool IRrecv::decodeMPX(decode_results *results, uint16_t nbits, bool strict) {
   data = data_result.data;
   offset += data_result.used;
   // Footer
-
- if (offset < results->rawlen &&
-     !matchAtLeast(results->rawbuf[offset], MPX_MIN_GAP_TICKS * s_tick))
-   return false;
+// comentado pues no tiene footer
+ // if (offset < results->rawlen &&
+ //     !matchAtLeast(results->rawbuf[offset], MPX_MIN_GAP_TICKS * s_tick))
+ //   return false;
 
 
   // Compliance
@@ -115,4 +113,5 @@ bool IRrecv::decodeMPX(decode_results *results, uint16_t nbits, bool strict) {
   results->address = 0;
   return true;
 }
+
 #endif
