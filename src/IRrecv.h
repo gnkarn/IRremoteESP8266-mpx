@@ -30,7 +30,7 @@
 #define STATE_MARK     3U
 #define STATE_SPACE    4U
 #define STATE_STOP     5U
-#define TOLERANCE     15U  // default percent tolerance in measurements original 25
+#define TOLERANCE     25U  // default percent tolerance in measurements original 25
 #define RAWTICK        2U  // Capture tick to uSec factor.
 // How long (ms) before we give up wait for more data?
 // Don't exceed MAX_TIMEOUT_MS without a good reason.

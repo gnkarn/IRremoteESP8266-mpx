@@ -73,22 +73,22 @@ bool IRrecv::decodeMPX(decode_results *results, uint16_t nbits, bool strict) {
     return false;  // We expect MPX to be a certain sized message.
 
   uint64_t data = 0;
-  uint16_t offset = OFFSET_START;
+  uint16_t offset = 1;
 
   // Header
 
 //   if (!matchMark(results->rawbuf[offset], MPX_HDR_MARK)) return false;
   // Calculate how long the common tick time is based on the header mark.
-//  uint32_t m_tick = results->rawbuf[offset++] * RAWTICK / MPX_HDR_MARK_TICKS; // no hace falta , en match data uso ticks fijos
+//  uint32_t m_tick = results->rawbuf[offset++] * RAWTICK / MPX_HDR_MARK_TICKS; // sacado para debug
 
-//  if (!matchSpace(results->rawbuf[offset], MPX_HDR_SPACE)) return false; // ** habiendo sacado este paso , mejoro mucho
+//  if (!matchSpace(results->rawbuf[offset], MPX_HDR_SPACE)) return false; // habilitar!
   // Calculate how long the common tick time is based on the header space.
   uint32_t s_tick = results->rawbuf[offset++] * RAWTICK /  MPX_HDR_SPACE_TICKS;
 
   uint32_t m_tick = s_tick; // gnk make both the same , no reason why not
   //Serial.print("m_tick: ") ;Serial.print(m_tick); // only for debug
   // Data
-  
+
   // matchData(*data_ptr,  nbits,onemark, onespace,zeromark, zerospace,tolerance = TOLERANCE);
   match_result_t data_result = matchData(&(results->rawbuf[offset]), nbits,
                                          MPX_BIT_onemark_TICKS * MPX_TICK,
