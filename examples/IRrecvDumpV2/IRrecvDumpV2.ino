@@ -15,6 +15,7 @@
  *     - Decode from a copy of the data so we can start capturing faster thus
  *       reduce the likelihood of miscaptures.
  * Based on Ken Shirriff's IrsendDemo Version 0.1 July, 2009,
+ * Modified by gnk for mpx alarm zones detection -
  */
 
 #ifndef UNIT_TEST
