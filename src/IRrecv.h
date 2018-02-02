@@ -15,8 +15,8 @@
 #include "IRremoteESP8266.h"
 
 // Constants
-#define HEADER         1U  // Usual nr. of header entries. original 2U
-#define FOOTER         1U  // Usual nr. of footer (stop bits) entries.original 2U
+#define HEADER         1U  // Usual nr. of header entries. * con 1 funciona
+#define FOOTER         0U  // Usual nr. of footer (stop bits) entries. * con 1 funciona, con 0 tambien  regular
 #define OFFSET_START   0U  // Usual rawbuf entry to start processing from.
 #define MS_TO_USEC(x)  (x * 1000U)  // Convert milli-Seconds to micro-Seconds.
 // Marks tend to be 100us too long, and spaces 100us too short

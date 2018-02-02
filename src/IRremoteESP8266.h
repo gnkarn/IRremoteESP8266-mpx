@@ -54,7 +54,7 @@
 // Disable (set to false) all the protocols you do not need/want!
 // The Air Conditioner protocols are the most expensive memory-wise.
 //
-#define DECODE_HASH           true // Semi-unique code for unknown messages
+#define DECODE_HASH           false // Semi-unique code for unknown messages
 
 #define SEND_RAW             true
 
@@ -287,7 +287,7 @@ enum decode_type_t {
 #define LASERTAG_MIN_REPEAT          0U
 #define MPX_BITS                    16U
 // Turn on Debugging information by uncommenting the following line.
-#define DEBUG 1
+//#define DEBUG 1
 
 #ifdef DEBUG
 #ifdef UNIT_TEST
