@@ -153,8 +153,14 @@ bool ledState = 0; // led Status
 const long lediInterval = 500;           // interval at which to blink (milliseconds)
 
 // if the code corresponds to an alarm zone return zone number
-uint8_t DetectAlarmZone(){
-  if (results.value == 0x9653) return 5;
+uint8_t DetectAlarmZone(uint64_t zone){
+  if (zone == 0x9665) return 6; // dormitorio
+  if (zone == 0x9653) return 5; // escritorio
+  if (zone == 0x1540) return 4; // matrim
+  if (zone == 0x9630) return 3; // liv/coc
+  //if (zone == 0x9653) return 2; // patio
+  if (zone == 0x1615) return 1; // entrada
+
   return 0 ;
 }
 
@@ -206,7 +212,7 @@ void loop() {
     yield();  // Feed the WDT (again)
 
     //serialPrintUint64(results.value, HEX) ; // decimal value para  verificar por zona en hexa
-    uint8_t z = DetectAlarmZone();
+    uint8_t z = DetectAlarmZone(results.value);
     currentLedMillis = millis();
     if (z != 0) {
       Serial.print("z "); Serial.println(z);
